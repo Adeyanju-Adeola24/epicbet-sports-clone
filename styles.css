@@ -1,20 +1,26 @@
 :root{
-  --bg0:#060c1d;
-  --bg1:#0a1931;
-  --bg2:#0f2242;
-  --card:#132845;
-  --card2:#182f52;
-  --line:#22365e;
-  --line2:#2c4472;
-  --text:#eaf0ff;
-  --muted:#8a9bb5;
-  --muted2:#647693;
-  --accent:#00e676;
-  --accent-d:#00b35c;
-  --live:#ff3b5c;
-  --gold:#ffc531;
-  --radius:12px;
-  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --bg0:#111627;
+  --bg1:#1B223C;
+  --bg2:#232A43;
+  --card:#232A43;
+  --card2:#2F3756;
+  --elev:#252C46;
+  --line:#394360;
+  --line2:#3f4a69;
+  --text:#FFFFFF;
+  --content:#DBDCE4;
+  --muted:#B6B8C8;
+  --muted2:#9AA0B8;
+  --accent:#C5E900;
+  --accent-d:#AFC800;
+  --accent-l:#E7FF75;
+  --live:#E42760;
+  --green:#0EFF7B;
+  --gold:#F4C870;
+  --info:#7B5FFF;
+  --radius:16px;
+  --font:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --num:"Magistral","Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -151,11 +157,12 @@ button{font-family:inherit;cursor:pointer}
 }
 .league-head small{color:var(--muted);font-weight:600}
 .match{
-  display:grid;grid-template-columns:92px 1fr auto;
+  display:grid;grid-template-columns:92px 1fr auto auto;
   gap:12px;align-items:center;
   background:var(--bg1);border:1px solid var(--line);
   border-top:0;padding:10px 12px;
 }
+.search-inline[hidden]{display:none}
 .league .match:last-child{border-radius:0 0 10px 10px}
 .match-time{color:var(--muted);font-size:12px}
 .match-time.live{color:var(--live);font-weight:800}
@@ -290,3 +297,90 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .status.next{background:rgba(138,155,181,.12);color:var(--muted);border:1px solid var(--line2)}
 .progress{height:6px;background:var(--bg0);border-radius:999px;margin-top:6px;overflow:hidden}
 .progress i{display:block;height:100%;background:var(--accent);border-radius:999px}
+
+/* ---- exact-theme overrides + new components ---- */
+body{font-size:14px}
+.logo{font-family:var(--num);font-weight:800;letter-spacing:1px}
+.logo-mark{background:var(--accent);color:#000;border-radius:8px}
+.promo-bar{background:var(--accent);color:#000}
+.promo-bar strong{background:#000;color:var(--accent)}
+.btn{border-radius:8px}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{background:var(--accent-l)}
+.odd strong,.live-score,.total-row strong{font-family:var(--num);font-weight:700}
+.odd.selected{color:#000}
+.odd.selected small{color:#1a2000}
+.sport-tab.active,.chip.active{color:#000}
+.hero{background:linear-gradient(120deg,#232A43 0%,#1B223C 55%,#2a2f00 100%)}
+.hero::after{background:radial-gradient(circle,rgba(197,233,0,.28),transparent 70%)}
+.promo-card{background:linear-gradient(135deg,#232A43,#2a2f00)}
+.live-dot{background:var(--live)}
+.match-time.live{color:var(--live)}
+.winner-row b{color:var(--green)}
+
+/* category tabs: Lobby / Live / All Sports */
+.catbar{
+  max-width:1440px;margin:0 auto;padding:0 16px 10px;
+  display:flex;align-items:center;gap:8px;
+}
+.cat-tab{
+  background:transparent;border:1px solid transparent;color:var(--muted);
+  font-weight:600;font-size:14px;padding:8px 14px;border-radius:8px;
+}
+.cat-tab:hover{color:var(--text)}
+.cat-tab.active{background:var(--card2);color:var(--text)}
+.cat-tab .pill{background:var(--live);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 7px;margin-left:6px}
+.cat-spacer{flex:1}
+.search-inline{display:flex;align-items:center;gap:8px;background:var(--bg0);border:1px solid var(--line);border-radius:8px;padding:7px 10px;min-width:220px}
+.search-inline input{background:transparent;border:0;outline:0;color:var(--text);width:100%;font-size:13px}
+.icon-btn{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font-size:15px}
+
+/* sidebar sections */
+.side-sec{padding:10px 6px 4px;font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--muted);text-transform:uppercase}
+.tl-row{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:0;color:var(--text);padding:8px 10px;border-radius:8px;font-size:13px;text-align:left}
+.tl-row:hover{background:var(--card)}
+.tl-row .n{margin-left:auto;color:var(--muted);font-size:12px}
+
+/* lobby hero */
+.lobby-hero{
+  background:linear-gradient(100deg,#2F3756,#1B223C 60%,#3a3f00);
+  border:1px solid var(--line2);border-radius:var(--radius);
+  padding:22px;margin-bottom:14px;position:relative;overflow:hidden;
+}
+.lobby-hero h1{margin:0 0 6px;font-size:24px;font-family:var(--num);letter-spacing:.5px}
+.lobby-hero h1 em{font-style:normal;color:var(--accent)}
+.lobby-hero p{margin:0 0 12px;color:var(--muted)}
+.more-link{background:none;border:0;color:var(--muted);font-size:12px;font-weight:600;padding:6px 12px}
+.more-link:hover{color:var(--accent)}
+
+/* winners feed */
+.winners-head{display:flex;align-items:center;justify-content:space-between}
+.winners-sub{font-size:11px;color:var(--muted)}
+
+/* mobile dock */
+.dock{
+  display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:rgba(27,34,60,.98);border-top:1px solid var(--line);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.dock nav{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.dock a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-size:10.5px;font-weight:600;padding:6px 2px;border-radius:8px;position:relative}
+.dock a.active{color:var(--accent)}
+.dock .dbadge{position:absolute;top:0;right:calc(50% - 20px);background:var(--accent);color:#000;font-size:10px;font-weight:800;border-radius:999px;padding:0 6px}
+
+/* auth modal */
+.modal-back{position:fixed;inset:0;background:rgba(17,22,39,.8);display:none;place-items:center;z-index:100;padding:16px}
+.modal-back.open{display:grid}
+.modal{background:var(--bg1);border:1px solid var(--line2);border-radius:var(--radius);padding:24px;width:min(400px,100%)}
+.modal h2{margin:0 0 4px;font-family:var(--num)}
+.modal p{color:var(--muted);font-size:13px;margin:0 0 14px}
+.modal label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+.modal input{width:100%;background:var(--bg0);border:1px solid var(--line2);border-radius:8px;color:var(--text);padding:10px}
+.modal .row{display:flex;gap:10px;margin-top:16px}
+.modal .row .btn{flex:1;padding:11px}
+
+@media (max-width:1100px){
+  .dock{display:block}
+  body{padding-bottom:64px}
+  .betslip-fab{display:none !important}
+}

@@ -3,82 +3,105 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>EpicBet-style Sportsbook — Frontend Clone (Demo)</title>
+<title>Epicbet-style Sportsbook — Sports (Demo Recreation)</title>
+<meta name="description" content="Demo recreation of a sportsbook sports page layout for study purposes. Mock data, no real betting."/>
+<meta name="theme-color" content="#111627"/>
 <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
-<div class="promo-bar">100% BONUS UP TO 200 USDT ON YOUR FIRST DEPOSIT <strong>Claim now</strong></div>
 
 <header class="site-header">
   <div class="header-inner">
-    <a class="logo" href="#"><span class="logo-mark">E</span><span>EPIC<em>BET</em></span></a>
-    <nav class="main-nav" aria-label="primary">
+    <a class="logo" href="./index.html" aria-label="home"><span class="logo-mark">E</span><span>EPIC<em>BET</em></span></a>
+    <nav class="main-nav" aria-label="products">
       <a href="./index.html" class="active">Sports</a>
-      <a href="./live.html">Live Betting</a>
       <a href="./casino.html">Casino</a>
+      <a href="./live.html">Live Betting</a>
       <a href="./promotions.html">Promotions</a>
       <a href="./roadmap.html">Roadmap</a>
     </nav>
     <div class="header-spacer"></div>
-    <label class="search-box">🔎 <input id="search" placeholder="Search teams, leagues…" aria-label="search matches"/></label>
-    <button class="btn btn-ghost">Log in</button>
-    <button class="btn btn-primary">Join now</button>
+    <button class="icon-btn" id="searchBtn" aria-label="search">🔎</button>
+    <button class="btn btn-ghost" data-auth="login">Login</button>
+    <button class="btn btn-primary" data-auth="register">Register</button>
   </div>
-  <div class="sports-tabs" id="sportsTabs"></div>
+  <div class="catbar" role="tablist" aria-label="sports categories">
+    <button class="cat-tab active" data-view="lobby" role="tab">Lobby</button>
+    <button class="cat-tab" data-view="live" role="tab">Live<span class="pill" id="livePill">0</span></button>
+    <button class="cat-tab" data-view="all" role="tab">All Sports</button>
+    <div class="cat-spacer"></div>
+    <label class="search-inline" id="searchWrap" hidden>🔎 <input id="search" placeholder="Search matches…" aria-label="search matches"/></label>
+  </div>
 </header>
 
 <main class="page">
-  <aside class="panel left-col" aria-label="sports menu">
-    <div class="panel-h"><span>Top Sports</span><span style="color:var(--accent)">● Live</span></div>
+  <aside class="panel left-col" aria-label="sports sidebar">
+    <div class="panel-h"><span>Top Leagues</span></div>
+    <div style="padding:6px" id="topLeagues"></div>
+    <div class="panel-h"><span>All Sports</span><span class="winners-sub">A–Z</span></div>
     <div class="sport-list" id="sportList"></div>
-    <div class="panel-h"><span>Info</span></div>
-    <div style="padding:10px 14px;color:var(--muted);font-size:13px">
-      Demo recreation with mock odds for layout study. No real betting, no copied assets.
-    </div>
   </aside>
 
   <section aria-label="matches">
-    <div class="hero">
-      <div style="position:relative;z-index:1">
-        <div class="hero-badges"><span class="badge">⚡ Live betting</span><span class="badge">₿ Crypto payouts</span><span class="badge">Best odds</span></div>
-        <h1>Bet live with competitive odds &amp; fast payouts.</h1>
-        <p>Explore football, tennis, basketball, esports and more. Click odds to build your betslip.</p>
-        <button class="btn btn-primary" onclick="document.getElementById('matches').scrollIntoView({behavior:'smooth'})">Browse matches →</button>
-      </div>
+    <div id="lobbyHero" class="lobby-hero">
+      <h1>BET <em>LIVE</em>, WIN BIG.</h1>
+      <p>Competitive odds across football, tennis, basketball and more — with instant crypto payouts. Demo recreation with mock data.</p>
+      <button class="btn btn-primary" id="heroCta">Browse live now →</button>
     </div>
-    <div class="panel" style="margin-bottom:12px"><div class="panel-h"><span id="liveCount">—</span><span style="color:var(--muted);font-weight:600">1X2 · Moneyline · Winner</span></div></div>
+    <div class="panel" style="margin-bottom:12px"><div class="panel-h"><span id="viewTitle">Highlights</span><span class="winners-sub" id="viewSub">Top matches right now</span></div></div>
     <div id="matches"></div>
   </section>
 
   <aside class="betslip-col">
     <div class="panel betslip" aria-label="betslip">
-      <div class="panel-h"><span id="slipTitle">Betslip (0)</span><button id="clearBtn" class="btn btn-ghost" style="padding:5px 10px">Clear</button></div>
-      <div class="tabs"><button data-mode="single" class="active">Singles</button><button data-mode="multi">Multi</button></div>
+      <div class="panel-h"><span id="slipTitle">Betslip (0)</span><button id="clearBtn" class="btn btn-ghost" style="padding:5px 10px">Clear all</button></div>
+      <div class="tabs">
+        <button data-mode="single" class="active">Single</button><button data-mode="combo">Combo</button><button data-mode="system">System</button>
+      </div>
       <div class="slip-items" id="slipItems"></div>
       <div class="slip-footer">
-        <div class="total-row"><span id="rowOddsLabel">Avg. odds</span><strong id="totalOdds">—</strong></div>
+        <div class="total-row"><span>Total odds</span><strong id="totalOdds">—</strong></div>
         <div class="total-row"><span>Total stake</span><strong id="totalStake">0.00 USDT</strong></div>
         <div class="total-row"><span>Potential win</span><strong id="potential" style="color:var(--accent)">—</strong></div>
-        <button id="placeBtn" class="btn btn-primary" style="width:100%;margin-top:8px" disabled>Place bet</button>
+        <button id="placeBtn" class="btn btn-primary" style="width:100%;margin-top:8px" disabled>Place Bet</button>
       </div>
     </div>
-    <div class="promo-card"><h3>🎁 100% up to 200 USDT</h3><p>New players get a matched first deposit + free live-bet token.</p><button class="btn btn-primary">Claim bonus</button></div>
-    <div class="panel winners"><div class="panel-h"><span>Latest big wins</span></div>
-      <div class="winner-row"><span>alex***88 · Multi 6-fold</span><b>+1,240 USDT</b></div>
-      <div class="winner-row"><span>maria***21 · Live tennis</span><b>+860 USDT</b></div>
-      <div class="winner-row"><span>crypto***king · NBA</span><b>+512 USDT</b></div>
+    <div class="panel winners" aria-label="winners">
+      <div class="panel-h winners-head"><span>Winners</span><span class="winners-sub">latest payouts</span></div>
+      <div id="winnersFeed"></div>
     </div>
   </aside>
 </main>
 
-<button class="betslip-fab" id="fabCount" onclick="document.querySelector('.betslip-col').style.display='block';document.querySelector('.betslip-col').scrollIntoView()">Betslip</button>
+<div class="dock" aria-label="mobile navigation">
+  <nav>
+    <a href="./index.html" class="active">🏆<span>Sports</span></a>
+    <a href="./live.html">🔴<span>Live</span></a>
+    <a href="./index.html" id="dockSlip">🧾<span>Betslip</span><span class="dbadge" id="dockBadge" hidden>0</span></a>
+    <a href="./casino.html">🎰<span>Casino</span></a>
+    <a href="./promotions.html">🎁<span>Bonus</span></a>
+  </nav>
+</div>
+
+<div class="modal-back" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal">
+    <h2 id="authTitle">Login</h2>
+    <p>Demo only — no account is created and nothing is sent anywhere.</p>
+    <label>Email<input type="email" placeholder="you@example.com"/></label>
+    <label>Password<input type="password" placeholder="••••••••"/></label>
+    <div class="row">
+      <button class="btn btn-ghost" id="authCancel">Cancel</button>
+      <button class="btn btn-primary" id="authGo">Continue</button>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">
-    <div><h4>EPICBET-style demo</h4><p>Frontend layout study built from scratch with mock data. Dark-blue + green theme, 3-column sportsbook grid. 18+ Play responsibly.</p></div>
+    <div><h4>EPICBET-STYLE DEMO</h4><p>Layout study recreated from scratch with mock data. No real betting, no affiliated content. 18+ Play responsibly.</p></div>
     <div><h4>Sports</h4><ul><li><a href="./index.html">Sports</a></li><li><a href="./live.html">Live Betting</a></li><li><a href="./casino.html">Casino</a></li></ul></div>
-    <div><h4>Company</h4><ul><li><a href="./promotions.html">Promotions</a></li><li><a href="./roadmap.html">Roadmap</a></li><li>Support</li></ul></div>
-    <div><h4>Payments</h4><ul><li>BTC · ETH · USDT</li><li>Fast payouts</li><li>Provably fair</li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="./promotions.html">Promotions</a></li><li><a href="./roadmap.html">Roadmap</a></li><li>Sustainable Gaming</li><li>Support</li></ul></div>
+    <div><h4>Payments</h4><ul><li>BTC · ETH · USDT</li><li>Fast payouts</li><li>English</li></ul></div>
   </div>
 </footer>
 
